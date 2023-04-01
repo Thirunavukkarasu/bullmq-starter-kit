@@ -1,0 +1,7 @@
+POST http://localhost:4000/webhook 
+Content-Type: application/json
+
+{
+    "message": "User Registered",
+    "email": "swati@gmail.com"
+}

@@ -1,5 +1,5 @@
 {
-  "name": "hello-bullmq",
+  "name": "bullmq-starter-kit",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,8 +7,7 @@
     "dev": "npx nodemon",
     "build": "rimraf ./build && tsc",
     "start": "npm run build && node build/index.js",
-    "dev:producer": "npx ts-node ./src/producer.ts",
-    "dev:consumer": "npx ts-node ./src/consumer.ts"
+    "dev:worker": "npx ts-node ./backend/workers/index.ts"
   },
   "keywords": [],
   "author": "",

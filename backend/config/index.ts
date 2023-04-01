@@ -1,5 +1,4 @@
 import * as dotenv from "dotenv";
-import { Queue } from "bullmq";
 
 dotenv.config({ path: process.cwd() + "/.env" });
 export const connection: any = {
@@ -9,8 +8,3 @@ export const connection: any = {
     password: process.env.REDIS_PASSWORD,
   },
 };
-
-export const facebookCommentsQueue = new Queue(
-  "facebook-comments-queue",
-  connection
-);

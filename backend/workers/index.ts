@@ -1,11 +1,14 @@
 import { Worker } from "bullmq";
-import { connection } from "./config";
+import { connection } from "../config";
 
-export function startConsumer() {
+export function startWorker() {
   const worker = new Worker(
-    "facebook-comments-queue",
+    "trigger",
     async (job) => {
       console.log("Job Done", job.data);
+      return {
+        message: "Email Journey for user started!",
+      };
     },
     connection
   );
@@ -20,4 +23,4 @@ export function startConsumer() {
   });
 }
 
-startConsumer();
+startWorker();
