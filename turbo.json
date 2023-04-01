@@ -5,7 +5,13 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-      "env": ["VERCEL_URL", "REDIS_URI", "REDIS_PORT", "REDIS_PASSWORD"]
+      "env": [
+        "VERCEL_URL",
+        "REDIS_URI",
+        "REDIS_PORT",
+        "REDIS_PASSWORD",
+        "RESEND_API_KEY"
+      ]
     },
     "lint": {
       "outputs": []

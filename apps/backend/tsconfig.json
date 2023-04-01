@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "outDir": "build",
     "rootDir": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "react"
   }
 }
