@@ -1,7 +1,26 @@
-POST http://localhost:4000/webhook 
+### Simple Webhook
+POST http://localhost:4000/webhook/simple 
 Content-Type: application/json
 
 {
     "message": "User Registered",
-    "email": "swati@gmail.com"
+    "email": "abdul@gmail.com"
+}
+
+### Complex Webhook
+POST http://localhost:4000/webhook/complex 
+Content-Type: application/json
+
+{
+    "message": "User Registered",
+    "email": "abdul@gmail.com"
+}
+
+### Random Webhook
+POST http://localhost:4000/webhook/random 
+Content-Type: application/json
+
+{
+    "message": "User Registered",
+    "email": "abdul@gmail.com"
 }
