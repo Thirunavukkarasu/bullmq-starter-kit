@@ -2,5 +2,5 @@
   "watch": ["backend"],
   "ext": ".ts,.js",
   "ignore": [],
-  "exec": "npx ts-node ./backend/index.ts"
+  "exec": "npx ts-node index.ts"
 }

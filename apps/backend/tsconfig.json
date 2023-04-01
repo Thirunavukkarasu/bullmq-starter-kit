@@ -8,7 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "build",
-    "rootDir": "backend",
+    "rootDir": ".",
     "resolveJsonModule": true
   }
 }
