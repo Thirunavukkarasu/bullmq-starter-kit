@@ -1,5 +1,5 @@
 import prisma from "../config/prisma";
-import { triggerQueue } from "../queues";
+import triggerQueue from "../queues/trigger";
 
 export const simpleWebhookHandler = async (req: any, res: any) => {
   const message = req.body.message || "User Onboarded";

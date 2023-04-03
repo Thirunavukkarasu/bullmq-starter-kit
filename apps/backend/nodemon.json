@@ -1,6 +1,6 @@
 {
-  "watch": ["backend"],
+  "watch": ["*"],
   "ext": ".ts,.js",
-  "ignore": [],
+  "ignore": [".turbo", "build"],
   "exec": "npx ts-node index.ts"
 }
