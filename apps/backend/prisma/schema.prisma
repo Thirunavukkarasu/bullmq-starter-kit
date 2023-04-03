@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Flow {
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  name        String?
+  active      Boolean
+  publishedAt String
+  webhookId   String
+  executionId Int?
+  steps       Step[]
+  user        User?      @relation(fields: [userId], references: [id])
+  executions  Execution? @relation(fields: [executionId], references: [id])
+
+  @@map("flows")
+}
+
+model User {
+  id                       Int           @id @default(autoincrement())
+  fullName                 String
+  email                    String
+  password                 String
+  role                     String
+  resetPasswordToken       String
+  resetPasswordTokenSentAt String
+  trialExpiryDate          String
+  connections              Connection[]
+  flows                    Flow[]
+  steps                    Step[]
+  executions               Execution[]
+  paymentPlan              PaymentPlan?  @relation(fields: [paymentPlanId], references: [id])
+  usageData                UsageData?    @relation(fields: [usageDataId], references: [id])
+  subscription             Subscription? @relation(fields: [subscriptionId], references: [id])
+  paymentPlanId            Int?
+  usageDataId              Int?
+  subscriptionId           Int?
+
+  @@map("users")
+}
+
+model Execution {
+  id             Int             @id @default(autoincrement())
+  flow           Flow[]
+  users          User?           @relation(fields: [userId], references: [id])
+  userId         Int?
+  executionSteps ExecutionStep[]
+
+  @@map("executions")
+}
+
+model ExecutionStep {
+  id           Int       @id @default(autoincrement())
+  executionId  Int
+  stepId       Int?
+  dataIn       Json
+  dataOut      Json
+  errorDetails Json
+  status       String
+  execution    Execution @relation(fields: [executionId], references: [id])
+  count        Int
+  step         Step?     @relation(fields: [stepId], references: [id])
+
+  @@map("execution_steps")
+}
+
+model Step {
+  id             Int             @id @default(autoincrement())
+  flowId         Int
+  key            String
+  appKey         String
+  type           String
+  connectionId   Int
+  status         String
+  position       Int
+  parameters     Json
+  connection     Connection      @relation(fields: [connectionId], references: [id])
+  executionSteps ExecutionStep[]
+  flow           Flow?           @relation(fields: [flowId], references: [id])
+  users          User?           @relation(fields: [userId], references: [id])
+  userId         Int?
+
+  @@map("steps")
+}
+
+model Connection {
+  id     Int    @id @default(autoincrement())
+  users  User?  @relation(fields: [userId], references: [id])
+  userId Int?
+  Step   Step[]
+
+  @@map("connections")
+}
+
+model PaymentPlan {
+  id                     Int         @id @default(autoincrement())
+  name                   String
+  taskCount              Int
+  userId                 Int
+  stripeCustomerId       String
+  stripeSubscriptionId   String
+  currentPeriodStartedAt String
+  currentPeriodEndsAt    String
+  users                  User[]
+  usageData              UsageData[]
+
+  @@map("payment_plans")
+}
+
+model UsageData {
+  id                Int         @id @default(autoincrement())
+  userId            String
+  consumedTaskCount Int
+  nextResetAt       String
+  paymentPlan       PaymentPlan @relation(fields: [paymentPlanId], references: [id])
+  users             User[]
+  paymentPlanId     Int
+
+  @@map("usage_data")
+}
+
+model Subscription {
+  id                   Int    @id @default(autoincrement())
+  userId               String
+  stripeSubscriptionId String
+  stripePlanId         String
+  updateUrl            String
+  cancelUrl            String
+  status               String
+  nextBillAmount       String
+  nextBillDate         String
+  lastBillDate         String
+  users                User[]
+
+  @@map("subscriptions")
+}
