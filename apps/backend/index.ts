@@ -1,5 +1,5 @@
 import express from "express";
-
+import * as config from "./config";
 import { ExpressAdapter } from "@bull-board/express";
 import { BullMQAdapter } from "@bull-board/api/bullMQAdapter";
 import { createBullBoard } from "@bull-board/api";

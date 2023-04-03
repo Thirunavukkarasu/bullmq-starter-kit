@@ -12,11 +12,11 @@ datasource db {
 
 model Flow {
   id          Int        @id @default(autoincrement())
-  userId      Int
+  userId      Int?
   name        String?
   active      Boolean
-  publishedAt String
-  webhookId   String
+  publishedAt DateTime
+  webhookId   String?
   executionId Int?
   steps       Step[]
   user        User?      @relation(fields: [userId], references: [id])
@@ -32,8 +32,8 @@ model User {
   password                 String
   role                     String
   resetPasswordToken       String
-  resetPasswordTokenSentAt String
-  trialExpiryDate          String
+  resetPasswordTokenSentAt DateTime
+  trialExpiryDate          DateTime
   connections              Connection[]
   flows                    Flow[]
   steps                    Step[]
@@ -96,7 +96,7 @@ model Connection {
   id     Int    @id @default(autoincrement())
   users  User?  @relation(fields: [userId], references: [id])
   userId Int?
-  Step   Step[]
+  step   Step[]
 
   @@map("connections")
 }
