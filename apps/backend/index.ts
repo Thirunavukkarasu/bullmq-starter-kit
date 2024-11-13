@@ -5,17 +5,17 @@ import { BullMQAdapter } from "@bull-board/api/bullMQAdapter";
 import { createBullBoard } from "@bull-board/api";
 import triggerQueue from "./queues/trigger";
 import {
-  simpleWebhookHandler,
-  complexWebhookHandler,
-  randomWebhookHandler,
+    simpleWebhookHandler,
+    complexWebhookHandler,
+    randomWebhookHandler,
 } from "./controllers/webhooks";
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath("/admin/queues");
 
 createBullBoard({
-  queues: [new BullMQAdapter(triggerQueue)],
-  serverAdapter: serverAdapter,
+    queues: [new BullMQAdapter(triggerQueue)],
+    serverAdapter: serverAdapter,
 });
 
 const app = express();
@@ -27,5 +27,5 @@ app.post("/webhook/complex", complexWebhookHandler);
 app.post("/webhook/random", randomWebhookHandler);
 
 app.listen(PORT, () => {
-  console.log(`Started server in port ${PORT}`);
+    console.log(`Started server in port ${PORT}`);
 });
