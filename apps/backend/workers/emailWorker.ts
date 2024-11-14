@@ -3,7 +3,7 @@ import { EmailClient } from "emails";
 import { connection } from "../config";
 
 export const worker = new Worker(
-  "trigger",
+  "email",
   async (job) => {
     try {
       if (process.env.RESEND_API_KEY) {
@@ -19,12 +19,15 @@ export const worker = new Worker(
           name: "Thiru",
           to: "tamilan.arasu@gmail.com",
         });
+        console.log("Job Done", job.data);
+        return {
+          message: "Email Journey for user started!",
+        };
+      }
+      else {
+        throw new Error("RESEND_API_KEY not found");
       }
 
-      console.log("Job Done", job.data);
-      return {
-        message: "Email Journey for user started!",
-      };
     } catch (e) {
       console.log("Error", e);
       throw e;
